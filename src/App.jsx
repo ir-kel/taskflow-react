@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import MiseEnPage from './components/MiseEnPage.jsx'
 import Connexion from './pages/Connexion.jsx'
 import Inscription from './pages/Inscription.jsx'
 import Dashboard from './pages/Dashboard.jsx'
@@ -9,13 +10,42 @@ import NonTrouve from './pages/NonTrouve.jsx'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Connexion />} />
-      <Route path="/connexion" element={<Connexion />} />
-      <Route path="/inscription" element={<Inscription />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/projets" element={<Projets />} />
-      <Route path="/projets/:id" element={<DetailProjet />} />
-      <Route path="*" element={<NonTrouve />} />
+      <Route
+        path="/"
+        element={<Navigate to="/connexion" replace />}
+      />
+
+      <Route
+        path="/connexion"
+        element={<Connexion />}
+      />
+
+      <Route
+        path="/inscription"
+        element={<Inscription />}
+      />
+
+      <Route element={<MiseEnPage />}>
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
+
+        <Route
+          path="/projets"
+          element={<Projets />}
+        />
+
+        <Route
+          path="/projets/:id"
+          element={<DetailProjet />}
+        />
+      </Route>
+
+      <Route
+        path="*"
+        element={<NonTrouve />}
+      />
     </Routes>
   )
 }

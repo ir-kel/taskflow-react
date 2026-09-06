@@ -5,6 +5,61 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #1f2937;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+}
+
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  padding: 24px;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+}
+
+.sidebar-logo h1 {
+  margin: 0;
+}
+
+.sidebar-logo p {
+  margin-top: 6px;
+  color: #6b7280;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.sidebar-nav a {
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.sidebar-nav a:hover {
+  background: #f3f4f6;
+}
+
+.sidebar-nav a.active {
+  background: #e0e7ff;
+  font-weight: 600;
+}
+
+.app-content {
+  flex: 1;
+  min-width: 0;
 }
 
 main {
