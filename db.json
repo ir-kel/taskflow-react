@@ -1,0 +1,170 @@
+{
+  "utilisateurs": [
+    {
+      "id": 1,
+      "nom": "Utilisateur Test",
+      "email": "test@taskflow.local",
+      "motDePasse": "1234"
+    }
+  ],
+  "projets": [
+    {
+      "id": 1,
+      "utilisateurId": 1,
+      "nom": "Application TaskFlow",
+      "description": "Développement du gestionnaire de projets et de tâches.",
+      "couleur": "#4F46E5",
+      "creeLe": "2026-09-06"
+    },
+    {
+      "id": 2,
+      "utilisateurId": 1,
+      "nom": "Site vitrine Atlas",
+      "description": "Création d'un site vitrine moderne et responsive.",
+      "couleur": "#0EA5E9",
+      "creeLe": "2026-09-03"
+    },
+    {
+      "id": 3,
+      "utilisateurId": 1,
+      "nom": "Portfolio développeur",
+      "description": "Création d'un portfolio pour présenter mes projets.",
+      "couleur": "#F59E0B",
+      "creeLe": "2026-09-01"
+    }
+  ],
+  "taches": [
+    {
+      "id": 1,
+      "projetId": 1,
+      "titre": "Préparer la structure React",
+      "description": "Créer et organiser la base du projet TaskFlow.",
+      "statut": "en_cours",
+      "priorite": "haute",
+      "echeance": "2026-09-07",
+      "creeLe": "2026-09-06",
+      "modifieLe": "2026-09-06"
+    },
+    {
+      "id": 2,
+      "projetId": 1,
+      "titre": "Créer le formulaire de connexion",
+      "description": "Créer les champs e-mail et mot de passe avec validation.",
+      "statut": "a_faire",
+      "priorite": "haute",
+      "echeance": "2026-09-08",
+      "creeLe": "2026-09-06",
+      "modifieLe": "2026-09-06"
+    },
+    {
+      "id": 3,
+      "projetId": 1,
+      "titre": "Initialiser le projet Vite",
+      "description": "Créer le projet React avec Vite et installer les dépendances.",
+      "statut": "terminee",
+      "priorite": "moyenne",
+      "echeance": "2026-09-06",
+      "creeLe": "2026-09-05",
+      "modifieLe": "2026-09-06"
+    },
+    {
+      "id": 4,
+      "projetId": 1,
+      "titre": "Nettoyer le starter Vite",
+      "description": "Supprimer les éléments de démonstration et préparer une base propre.",
+      "statut": "terminee",
+      "priorite": "moyenne",
+      "echeance": "2026-09-06",
+      "creeLe": "2026-09-05",
+      "modifieLe": "2026-09-06"
+    },
+    {
+      "id": 5,
+      "projetId": 2,
+      "titre": "Créer la structure HTML principale",
+      "description": "Préparer les principales sections du site vitrine.",
+      "statut": "terminee",
+      "priorite": "haute",
+      "echeance": "2026-09-05",
+      "creeLe": "2026-09-03",
+      "modifieLe": "2026-09-05"
+    },
+    {
+      "id": 6,
+      "projetId": 2,
+      "titre": "Valider le formulaire de contact",
+      "description": "Ajouter la validation des champs obligatoires du formulaire.",
+      "statut": "en_cours",
+      "priorite": "moyenne",
+      "echeance": "2026-09-09",
+      "creeLe": "2026-09-04",
+      "modifieLe": "2026-09-06"
+    },
+    {
+      "id": 7,
+      "projetId": 2,
+      "titre": "Optimiser les images",
+      "description": "Réduire le poids des images utilisées sur le site.",
+      "statut": "a_faire",
+      "priorite": "basse",
+      "echeance": "2026-09-11",
+      "creeLe": "2026-09-04",
+      "modifieLe": "2026-09-04"
+    },
+    {
+      "id": 8,
+      "projetId": 2,
+      "titre": "Adapter le design au mobile",
+      "description": "Rendre les principales pages utilisables sur téléphone.",
+      "statut": "a_faire",
+      "priorite": "haute",
+      "echeance": "2026-09-10",
+      "creeLe": "2026-09-05",
+      "modifieLe": "2026-09-05"
+    },
+    {
+      "id": 9,
+      "projetId": 3,
+      "titre": "Choisir les projets à présenter",
+      "description": "Sélectionner les projets les plus intéressants pour le portfolio.",
+      "statut": "terminee",
+      "priorite": "basse",
+      "echeance": "2026-09-04",
+      "creeLe": "2026-09-01",
+      "modifieLe": "2026-09-04"
+    },
+    {
+      "id": 10,
+      "projetId": 3,
+      "titre": "Créer la page des projets",
+      "description": "Présenter les différents projets sous forme de cartes.",
+      "statut": "en_cours",
+      "priorite": "haute",
+      "echeance": "2026-09-08",
+      "creeLe": "2026-09-02",
+      "modifieLe": "2026-09-06"
+    },
+    {
+      "id": 11,
+      "projetId": 3,
+      "titre": "Rédiger la présentation personnelle",
+      "description": "Préparer le contenu de la section de présentation.",
+      "statut": "en_cours",
+      "priorite": "moyenne",
+      "echeance": "2026-09-12",
+      "creeLe": "2026-09-03",
+      "modifieLe": "2026-09-06"
+    },
+    {
+      "id": 12,
+      "projetId": 3,
+      "titre": "Ajouter les liens de contact",
+      "description": "Ajouter les moyens de contact dans le portfolio.",
+      "statut": "a_faire",
+      "priorite": "basse",
+      "echeance": "2026-09-13",
+      "creeLe": "2026-09-04",
+      "modifieLe": "2026-09-04"
+    }
+  ]
+}
