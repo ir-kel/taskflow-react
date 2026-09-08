@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth.js'
 
 function Connexion() {
@@ -78,6 +78,13 @@ function Connexion() {
         <button type="submit" disabled={chargement}>
           {chargement ? 'Connexion...' : 'Se connecter'}
         </button>
+
+        <p>
+          Pas encore de compte ?{' '}
+          <Link to="/inscription">
+            Créer un compte
+          </Link>
+        </p>
       </form>
     </main>
   )
