@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import MiseEnPage from './components/MiseEnPage.jsx'
+import RoutePrivee from './components/RoutePrivee.jsx'
 import Connexion from './pages/Connexion.jsx'
 import Inscription from './pages/Inscription.jsx'
 import Dashboard from './pages/Dashboard.jsx'
@@ -25,21 +26,23 @@ function App() {
         element={<Inscription />}
       />
 
-      <Route element={<MiseEnPage />}>
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+      <Route element={<RoutePrivee />}>
+        <Route element={<MiseEnPage />}>
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
 
-        <Route
-          path="/projets"
-          element={<Projets />}
-        />
+          <Route
+            path="/projets"
+            element={<Projets />}
+          />
 
-        <Route
-          path="/projets/:id"
-          element={<DetailProjet />}
-        />
+          <Route
+            path="/projets/:id"
+            element={<DetailProjet />}
+          />
+        </Route>
       </Route>
 
       <Route

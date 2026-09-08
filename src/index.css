@@ -19,12 +19,33 @@ a {
   display: flex;
 }
 
+
 .sidebar {
   width: 240px;
   min-height: 100vh;
   padding: 24px;
   background: #ffffff;
   border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #f3f4f6;
 }
 
 .sidebar-logo h1 {
