@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth.js'
+import FormulaireProjet from '../components/FormulaireProjet.jsx'
 
 function Projets() {
   const { utilisateur } = useAuth()
@@ -7,6 +8,13 @@ function Projets() {
   const [projets, setProjets] = useState([])
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState('')
+  
+  const gererProjetCree = (projetCree) => {
+  setProjets((projetsActuels) => [
+    ...projetsActuels,
+    projetCree,
+  ])
+}
 
   useEffect(() => {
     const chargerProjets = async () => {
@@ -57,6 +65,11 @@ function Projets() {
   return (
     <main>
       <h1>Mes projets</h1>
+
+      <FormulaireProjet
+        utilisateurId={utilisateur.id}
+        onProjetCree={gererProjetCree}
+      />
 
       {projets.length === 0 ? (
         <p>Aucun projet pour le moment.</p>
