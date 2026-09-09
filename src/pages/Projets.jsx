@@ -1,8 +1,75 @@
+import { useEffect, useState } from 'react'
+import useAuth from '../hooks/useAuth.js'
+
 function Projets() {
+  const { utilisateur } = useAuth()
+
+  const [projets, setProjets] = useState([])
+  const [chargement, setChargement] = useState(true)
+  const [erreur, setErreur] = useState('')
+
+  useEffect(() => {
+    const chargerProjets = async () => {
+      try {
+        setChargement(true)
+        setErreur('')
+
+        const reponse = await fetch(
+          `http://localhost:3000/projets?utilisateurId=${utilisateur.id}`,
+        )
+
+        if (!reponse.ok) {
+          throw new Error('Erreur lors du chargement des projets')
+        }
+
+        const donnees = await reponse.json()
+
+        setProjets(donnees)
+      } catch (error) {
+        console.error(error)
+        setErreur('Impossible de charger les projets.')
+      } finally {
+        setChargement(false)
+      }
+    }
+
+    chargerProjets()
+  }, [utilisateur.id])
+
+  if (chargement) {
+    return (
+      <main>
+        <h1>Mes projets</h1>
+        <p>Chargement des projets...</p>
+      </main>
+    )
+  }
+
+  if (erreur) {
+    return (
+      <main>
+        <h1>Mes projets</h1>
+        <p>{erreur}</p>
+      </main>
+    )
+  }
+
   return (
     <main>
       <h1>Mes projets</h1>
-      <p>Liste des projets de l'utilisateur connecté.</p>
+
+      {projets.length === 0 ? (
+        <p>Aucun projet pour le moment.</p>
+      ) : (
+        <div>
+          {projets.map((projet) => (
+            <article key={projet.id}>
+              <h2>{projet.nom}</h2>
+              <p>{projet.description}</p>
+            </article>
+          ))}
+        </div>
+      )}
     </main>
   )
 }
