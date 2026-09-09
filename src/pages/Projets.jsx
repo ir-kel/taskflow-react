@@ -1,20 +1,36 @@
 import { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth.js'
 import FormulaireProjet from '../components/FormulaireProjet.jsx'
+import FormulaireModificationProjet
+  from '../components/FormulaireModificationProjet.jsx'
 
 function Projets() {
   const { utilisateur } = useAuth()
 
   const [projets, setProjets] = useState([])
+  const [projetEnEdition, setProjetEnEdition] =
+  useState(null)
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState('')
   
   const gererProjetCree = (projetCree) => {
-  setProjets((projetsActuels) => [
-    ...projetsActuels,
-    projetCree,
-  ])
-}
+    setProjets((projetsActuels) => [
+      ...projetsActuels,
+      projetCree,
+    ])
+  }
+
+  const gererProjetModifie = (projetModifie) => {
+    setProjets((projetsActuels) =>
+      projetsActuels.map((projet) =>
+        projet.id === projetModifie.id
+          ? projetModifie
+          : projet,
+      ),
+    )
+
+    setProjetEnEdition(null)
+  }
 
   useEffect(() => {
     const chargerProjets = async () => {
@@ -63,6 +79,7 @@ function Projets() {
   }
 
   return (
+   
     <main>
       <h1>Mes projets</h1>
 
@@ -70,6 +87,15 @@ function Projets() {
         utilisateurId={utilisateur.id}
         onProjetCree={gererProjetCree}
       />
+
+      {projetEnEdition && (
+        <FormulaireModificationProjet
+          key={projetEnEdition.id}
+          projet={projetEnEdition}
+          onProjetModifie={gererProjetModifie}
+          onAnnuler={() => setProjetEnEdition(null)}
+        />
+      )}
 
       {projets.length === 0 ? (
         <p>Aucun projet pour le moment.</p>
@@ -79,12 +105,20 @@ function Projets() {
             <article key={projet.id}>
               <h2>{projet.nom}</h2>
               <p>{projet.description}</p>
+
+              <button
+                type="button"
+                onClick={() => setProjetEnEdition(projet)}
+              >
+                Modifier
+              </button>
             </article>
           ))}
         </div>
       )}
     </main>
   )
+  
 }
 
 export default Projets
