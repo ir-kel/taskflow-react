@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import useAuth from '../hooks/useAuth.js'
 import FormulaireProjet from '../components/FormulaireProjet.jsx'
 import FormulaireModificationProjet
   from '../components/FormulaireModificationProjet.jsx'
+
+
 
 function Projets() {
   const { utilisateur } = useAuth()
@@ -144,6 +147,10 @@ function Projets() {
             <article key={projet.id}>
               <h2>{projet.nom}</h2>
               <p>{projet.description}</p>
+
+              <Link to={`/projets/${projet.id}`}>
+                Voir le projet
+              </Link>
 
               <button
                 type="button"
