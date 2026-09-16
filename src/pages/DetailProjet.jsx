@@ -7,6 +7,7 @@ function DetailProjet() {
   const { utilisateur } = useAuth()
 
   const [projet, setProjet] = useState(null)
+  const [taches, setTaches] = useState([])
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState('')
 
@@ -16,24 +17,39 @@ function DetailProjet() {
         setChargement(true)
         setErreur('')
 
-        const reponse = await fetch(
+        const reponseProjet = await fetch(
           `http://localhost:3000/projets/${id}`,
         )
 
-        if (!reponse.ok) {
+        if (!reponseProjet.ok) {
           throw new Error('Projet introuvable')
         }
 
-        const donnees = await reponse.json()
+        const donneesProjet = await reponseProjet.json()
 
-        if (donnees.utilisateurId !== utilisateur.id) {
+        if (donneesProjet.utilisateurId !== utilisateur.id) {
           setErreur(
             'Vous ne pouvez pas accéder à ce projet.',
           )
           return
         }
 
-        setProjet(donnees)
+        setProjet(donneesProjet)
+
+        const reponseTaches = await fetch(
+          `http://localhost:3000/taches?projetId=${id}`,
+        )
+
+        if (!reponseTaches.ok) {
+          throw new Error(
+            'Erreur lors du chargement des tâches',
+          )
+        }
+
+        const donneesTaches = await reponseTaches.json()
+
+        setTaches(donneesTaches)
+
       } catch (error) {
         console.error(error)
         setErreur('Impossible de charger ce projet.')
@@ -95,12 +111,40 @@ function DetailProjet() {
         />
       </div>
 
+ 
       <section>
         <h2>Tâches du projet</h2>
-        <p>
-          Les tâches de ce projet seront affichées ici.
-        </p>
+
+        {taches.length === 0 ? (
+          <p>Aucune tâche pour ce projet.</p>
+        ) : (
+          <div>
+            {taches.map((tache) => (
+              <article key={tache.id}>
+                <h3>{tache.titre}</h3>
+
+                <p>{tache.description}</p>
+
+                <p>
+                  <strong>Statut :</strong>{' '}
+                  {tache.statut}
+                </p>
+
+                <p>
+                  <strong>Priorité :</strong>{' '}
+                  {tache.priorite}
+                </p>
+
+                <p>
+                  <strong>Échéance :</strong>{' '}
+                  {tache.echeance}
+                </p>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
+
     </main>
   )
 }
