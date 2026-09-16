@@ -78,6 +78,45 @@ function Projets() {
     )
   }
 
+  const gererSuppressionProjet = async (projet) => {
+    const confirmation = window.confirm(
+      `Voulez-vous vraiment supprimer le projet "${projet.nom}" ?`,
+    )
+
+    if (!confirmation) {
+      return
+    }
+
+    try {
+      const reponse = await fetch(
+        `http://localhost:3000/projets/${projet.id}`,
+        {
+          method: 'DELETE',
+        },
+      )
+
+      if (!reponse.ok) {
+        throw new Error(
+          'Erreur lors de la suppression du projet',
+        )
+      }
+
+      setProjets((projetsActuels) =>
+        projetsActuels.filter(
+          (projetActuel) =>
+            projetActuel.id !== projet.id,
+        ),
+      )
+
+      if (projetEnEdition?.id === projet.id) {
+        setProjetEnEdition(null)
+      }
+    } catch (error) {
+      console.error(error)
+      setErreur('Impossible de supprimer le projet.')
+    }
+  }
+
   return (
    
     <main>
@@ -112,6 +151,14 @@ function Projets() {
               >
                 Modifier
               </button>
+
+              <button
+                type="button"
+                onClick={() => gererSuppressionProjet(projet)}
+              >
+                Supprimer
+              </button>
+
             </article>
           ))}
         </div>
