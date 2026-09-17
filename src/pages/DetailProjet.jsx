@@ -34,6 +34,48 @@ function DetailProjet() {
 
       setTacheEnEdition(null)
     }
+
+    const gererSuppressionTache = async (tache) => {
+    const confirmation = window.confirm(
+      `Voulez-vous vraiment supprimer la tâche "${tache.titre}" ?`,
+    )
+
+    if (!confirmation) {
+      return
+    }
+
+    try {
+      const reponse = await fetch(
+        `http://localhost:3000/taches/${tache.id}`,
+        {
+          method: 'DELETE',
+        },
+      )
+
+      if (!reponse.ok) {
+        throw new Error(
+          'Erreur lors de la suppression de la tâche',
+        )
+      }
+
+      setTaches((tachesActuelles) =>
+        tachesActuelles.filter(
+          (tacheActuelle) =>
+            tacheActuelle.id !== tache.id,
+        ),
+      )
+
+      if (tacheEnEdition?.id === tache.id) {
+        setTacheEnEdition(null)
+      }
+    } catch (error) {
+      console.error(error)
+
+      setErreur(
+        'Impossible de supprimer la tâche.',
+      )
+    }
+  }
   
 
   useEffect(() => {
@@ -185,6 +227,14 @@ function DetailProjet() {
                 >
                   Modifier
                 </button>
+
+                <button
+                  type="button"
+                  onClick={() => gererSuppressionTache(tache)}
+                >
+                  Supprimer
+                </button>
+
               </article>
             ))}
           </div>
