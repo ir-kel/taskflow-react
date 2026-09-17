@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import useAuth from '../hooks/useAuth.js'
 import FormulaireTache from '../components/FormulaireTache.jsx'
+import FormulaireModificationTache
+  from '../components/FormulaireModificationTache.jsx'
 
 function DetailProjet() {
   const { id } = useParams()
@@ -9,15 +11,30 @@ function DetailProjet() {
 
   const [projet, setProjet] = useState(null)
   const [taches, setTaches] = useState([])
+  const [tacheEnEdition, setTacheEnEdition] =
+  useState(null)
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState('')
 
   const gererTacheCreee = (tacheCreee) => {
-  setTaches((tachesActuelles) => [
-    ...tachesActuelles,
-    tacheCreee,
-  ])
-}
+    setTaches((tachesActuelles) => [
+      ...tachesActuelles,
+      tacheCreee,
+    ])
+  }
+
+    const gererTacheModifiee = (tacheModifiee) => {
+      setTaches((tachesActuelles) =>
+        tachesActuelles.map((tache) =>
+          tache.id === tacheModifiee.id
+            ? tacheModifiee
+            : tache,
+        ),
+      )
+
+      setTacheEnEdition(null)
+    }
+  
 
   useEffect(() => {
     const chargerProjet = async () => {
@@ -128,6 +145,15 @@ function DetailProjet() {
           onTacheCreee={gererTacheCreee}
         />
 
+        {tacheEnEdition && (
+          <FormulaireModificationTache
+            key={tacheEnEdition.id}
+            tache={tacheEnEdition}
+            onTacheModifiee={gererTacheModifiee}
+            onAnnuler={() => setTacheEnEdition(null)}
+          />
+        )}
+
         {taches.length === 0 ? (
           <p>Aucune tâche pour ce projet.</p>
         ) : (
@@ -152,6 +178,13 @@ function DetailProjet() {
                   <strong>Échéance :</strong>{' '}
                   {tache.echeance}
                 </p>
+
+                <button
+                  type="button"
+                  onClick={() => setTacheEnEdition(tache)}
+                >
+                  Modifier
+                </button>
               </article>
             ))}
           </div>
