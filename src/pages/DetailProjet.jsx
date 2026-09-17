@@ -35,6 +35,49 @@ function DetailProjet() {
       setTacheEnEdition(null)
     }
 
+    const gererChangementStatut = async (
+      tache,
+      nouveauStatut,
+    ) => {
+      const dateModification = new Date()
+        .toISOString()
+        .slice(0, 10)
+
+      try {
+        const reponse = await fetch(
+          `http://localhost:3000/taches/${tache.id}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              statut: nouveauStatut,
+              modifieLe: dateModification,
+            }),
+          },
+        )
+
+        if (!reponse.ok) {
+          throw new Error(
+            'Erreur lors du changement de statut',
+          )
+        }
+
+        const tacheModifiee = await reponse.json()
+
+        setTaches((tachesActuelles) =>
+          tachesActuelles.map((tacheActuelle) =>
+            tacheActuelle.id === tacheModifiee.id
+              ? tacheModifiee
+              : tacheActuelle,
+          ),
+        )
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
     const gererSuppressionTache = async (tache) => {
     const confirmation = window.confirm(
       `Voulez-vous vraiment supprimer la tâche "${tache.titre}" ?`,
@@ -206,10 +249,41 @@ function DetailProjet() {
 
                 <p>{tache.description}</p>
 
-                <p>
+                {/* <p>
                   <strong>Statut :</strong>{' '}
                   {tache.statut}
-                </p>
+                </p> */}
+
+
+                <div>
+                  <label htmlFor={`statut-${tache.id}`}>
+                    <strong>Statut :</strong>
+                  </label>{' '}
+
+                  <select
+                    id={`statut-${tache.id}`}
+                    value={tache.statut}
+                    onChange={(event) =>
+                      gererChangementStatut(
+                        tache,
+                        event.target.value,
+                      )
+                    }
+                  >
+                    <option value="a_faire">
+                      À faire
+                    </option>
+
+                    <option value="en_cours">
+                      En cours
+                    </option>
+
+                    <option value="terminee">
+                      Terminée
+                    </option>
+                  </select>
+                </div>
+
 
                 <p>
                   <strong>Priorité :</strong>{' '}
