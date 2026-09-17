@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import useAuth from '../hooks/useAuth.js'
+import FormulaireTache from '../components/FormulaireTache.jsx'
 
 function DetailProjet() {
   const { id } = useParams()
@@ -10,6 +11,13 @@ function DetailProjet() {
   const [taches, setTaches] = useState([])
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState('')
+
+  const gererTacheCreee = (tacheCreee) => {
+  setTaches((tachesActuelles) => [
+    ...tachesActuelles,
+    tacheCreee,
+  ])
+}
 
   useEffect(() => {
     const chargerProjet = async () => {
@@ -114,6 +122,11 @@ function DetailProjet() {
  
       <section>
         <h2>Tâches du projet</h2>
+
+        <FormulaireTache
+          projetId={id}
+          onTacheCreee={gererTacheCreee}
+        />
 
         {taches.length === 0 ? (
           <p>Aucune tâche pour ce projet.</p>
