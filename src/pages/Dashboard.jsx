@@ -106,6 +106,35 @@ function Dashboard() {
           (tachesTerminees / totalTaches) * 100,
         )
 
+  const projetsAvecProgression = projets.map((projet) => {
+    const tachesProjet = taches.filter(
+      (tache) => tache.projetId === projet.id,
+    )
+
+    const totalTachesProjet = tachesProjet.length
+
+    const tachesTermineesProjet = tachesProjet.filter(
+      (tache) => tache.statut === 'terminee',
+    ).length
+
+    const progressionProjet =
+      totalTachesProjet === 0
+        ? 0
+        : Math.round(
+            (
+              tachesTermineesProjet /
+              totalTachesProjet
+            ) * 100,
+          )
+
+    return {
+      ...projet,
+      totalTaches: totalTachesProjet,
+      tachesTerminees: tachesTermineesProjet,
+      progression: progressionProjet,
+    }
+  })
+
   return (
     <main>
       <h1>Tableau de bord</h1>
@@ -157,6 +186,39 @@ function Dashboard() {
           {progression} %
         </progress>
       </section>
+
+      <section>
+        <h2>Progression par projet</h2>
+
+        {projetsAvecProgression.length === 0 ? (
+          <p>Aucun projet pour le moment.</p>
+        ) : (
+          <div>
+            {projetsAvecProgression.map((projet) => (
+              <article key={projet.id}>
+                <h3>{projet.nom}</h3>
+
+                <p>
+                  {projet.tachesTerminees} /{' '}
+                  {projet.totalTaches} tâches terminées
+                </p>
+
+                <p>
+                  {projet.progression} %
+                </p>
+
+                <progress
+                  value={projet.progression}
+                  max="100"
+                >
+                  {projet.progression} %
+                </progress>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
     </main>
   )
 }
