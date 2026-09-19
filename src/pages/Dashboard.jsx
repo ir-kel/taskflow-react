@@ -161,6 +161,17 @@ function Dashboard() {
     )
     .slice(0, 5)
 
+  const tachesEnRetard = taches
+    .filter(
+      (tache) =>
+        tache.echeance &&
+        tache.statut !== 'terminee' &&
+        tache.echeance < dateAujourdHui,
+    )
+    .sort((a, b) =>
+      a.echeance.localeCompare(b.echeance),
+    )
+
   return (
     <main>
       <h1>Tableau de bord</h1>
@@ -196,6 +207,11 @@ function Dashboard() {
           <article>
             <h3>Terminées</h3>
             <p>{tachesTerminees}</p>
+          </article>
+
+          <article>
+            <h3>En retard</h3>
+            <p>{tachesEnRetard.length}</p>
           </article>
         </div>
       </section>
@@ -255,6 +271,50 @@ function Dashboard() {
         ) : (
           <div>
             {prochainesEcheances.map((tache) => {
+              const projetTache = projets.find(
+                (projet) =>
+                  projet.id === tache.projetId,
+              )
+
+              return (
+                <article key={tache.id}>
+                  <h3>{tache.titre}</h3>
+
+                  <p>
+                    <strong>Projet :</strong>{' '}
+                    {projetTache?.nom ??
+                      'Projet inconnu'}
+                  </p>
+
+                  <p>
+                    <strong>Échéance :</strong>{' '}
+                    {tache.echeance}
+                  </p>
+
+                  <p>
+                    <strong>Priorité :</strong>{' '}
+                    {tache.priorite}
+                  </p>
+
+                  <p>
+                    <strong>Statut :</strong>{' '}
+                    {tache.statut}
+                  </p>
+                </article>
+              )
+            })}
+          </div>
+        )}
+      </section>
+
+      <section>
+        <h2>Tâches en retard</h2>
+
+        {tachesEnRetard.length === 0 ? (
+          <p>Aucune tâche en retard.</p>
+        ) : (
+          <div>
+            {tachesEnRetard.map((tache) => {
               const projetTache = projets.find(
                 (projet) =>
                   projet.id === tache.projetId,
