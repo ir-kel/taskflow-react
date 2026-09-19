@@ -249,3 +249,117 @@ main {
 .dashboard-project-progress-card h3 a:hover {
   color: #4f46e5;
 }
+
+
+/* Taches  */
+
+.dashboard-task-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+
+/* Styliser les cartes des prochaines échéances */
+
+.dashboard-task-card {
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dashboard-task-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.09);
+}
+
+.dashboard-task-card h3 {
+  margin: 0 0 14px;
+  font-size: 1rem;
+}
+
+.dashboard-task-card h3 a {
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.dashboard-task-card h3 a:hover {
+  color: #4f46e5;
+}
+
+.dashboard-task-card p {
+  margin: 8px 0;
+  color: #475569;
+  font-size: 0.92rem;
+}
+
+
+/* css for Transformer la priorité en badge */
+
+.dashboard-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.dashboard-priority-basse {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.dashboard-priority-moyenne {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.dashboard-priority-haute {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
+ /* Meme chose pour le status */
+
+ .dashboard-status-a_faire {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.dashboard-status-en_cours {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.dashboard-status-terminee {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Mettre davantage retard en evidandence */
+
+.dashboard-task-card .dashboard-overdue-text {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* Stylise ce message <p>Aucune échéance à venir.</p> */
+
+.dashboard-empty-state {
+  padding: 20px;
+  margin: 0;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #64748b;
+}

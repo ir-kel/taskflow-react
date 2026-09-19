@@ -343,11 +343,11 @@ function Dashboard() {
         <h2>Prochaines échéances</h2>
 
         {prochainesEcheances.length === 0 ? (
-          <p>
+          <p className="dashboard-empty-state">
             Aucune échéance à venir.
           </p>
         ) : (
-          <div>
+          <div className="dashboard-task-grid">
             {prochainesEcheances.map((tache) => {
               const projetTache = projets.find(
                 (projet) =>
@@ -356,7 +356,10 @@ function Dashboard() {
 
          
               return (
-                <article key={tache.id}>
+                <article
+                  key={tache.id}
+                  className="dashboard-task-card"
+                >
                
                   <h3>
                     <Link to={`/projets/${tache.projetId}`}>
@@ -383,12 +386,22 @@ function Dashboard() {
 
                   <p>
                     <strong>Priorité :</strong>{' '}
-                    {tache.priorite}
+
+                    <span
+                      className={`dashboard-badge dashboard-priority-${tache.priorite}`}
+                    >
+                      {tache.priorite}
+                    </span>
                   </p>
 
                   <p>
                     <strong>Statut :</strong>{' '}
-                    {tache.statut}
+
+                    <span
+                      className={`dashboard-badge dashboard-status-${tache.statut}`}
+                    >
+                      {tache.statut}
+                    </span>
                   </p>
                 </article>
               )
@@ -401,9 +414,9 @@ function Dashboard() {
         <h2>Tâches en retard</h2>
 
         {tachesEnRetard.length === 0 ? (
-          <p>Aucune tâche en retard.</p>
+          <p className="dashboard-empty-state">Aucune tâche en retard.</p>
         ) : (
-          <div>
+          <div className="dashboard-task-grid">
             {tachesEnRetard.map((tache) => {
               const projetTache = projets.find(
                 (projet) =>
@@ -414,7 +427,10 @@ function Dashboard() {
                 calculerJoursRetard(tache.echeance)
 
               return (
-                <article key={tache.id}>
+                <article
+                  key={tache.id}
+                  className="dashboard-task-card dashboard-task-card-overdue"
+                >
                  
                   <h3>
                     <Link to={`/projets/${tache.projetId}`}>
@@ -434,7 +450,8 @@ function Dashboard() {
                     {formaterDate(tache.echeance)}
                   </p>
 
-                  <p>
+                
+                  <p className="dashboard-overdue-text">
                     <strong>Retard :</strong>{' '}
                     {joursRetard}{' '}
                     {joursRetard === 1
@@ -444,12 +461,22 @@ function Dashboard() {
 
                   <p>
                     <strong>Priorité :</strong>{' '}
-                    {tache.priorite}
+
+                    <span
+                      className={`dashboard-badge dashboard-priority-${tache.priorite}`}
+                    >
+                      {tache.priorite}
+                    </span>
                   </p>
 
                   <p>
                     <strong>Statut :</strong>{' '}
-                    {tache.statut}
+
+                    <span
+                      className={`dashboard-badge dashboard-status-${tache.statut}`}
+                    >
+                      {tache.statut}
+                    </span>
                   </p>
                 </article>
               )
@@ -462,9 +489,9 @@ function Dashboard() {
         <h2>Tâches récentes</h2>
 
         {tachesRecentes.length === 0 ? (
-          <p>Aucune tâche récente.</p>
+          <p className="dashboard-empty-state">Aucune tâche récente.</p>
         ) : (
-          <div>
+          <div className="dashboard-task-grid">
             {tachesRecentes.map((tache) => {
               const projetTache = projets.find(
                 (projet) =>
@@ -472,8 +499,11 @@ function Dashboard() {
               )
 
               return (
-                <article key={tache.id}>
-               
+                <article
+                  key={tache.id}
+                  className="dashboard-task-card"
+                >
+                              
                   <h3>
                     <Link to={`/projets/${tache.projetId}`}>
                       {tache.titre}
@@ -493,12 +523,22 @@ function Dashboard() {
 
                   <p>
                     <strong>Priorité :</strong>{' '}
-                    {tache.priorite}
+
+                    <span
+                      className={`dashboard-badge dashboard-priority-${tache.priorite}`}
+                    >
+                      {tache.priorite}
+                    </span>
                   </p>
 
                   <p>
                     <strong>Statut :</strong>{' '}
-                    {tache.statut}
+
+                    <span
+                      className={`dashboard-badge dashboard-status-${tache.statut}`}
+                    >
+                      {tache.statut}
+                    </span>
                   </p>
                 </article>
               )
