@@ -135,6 +135,32 @@ function Dashboard() {
     }
   })
 
+  // prochaines échéances
+
+  const maintenant = new Date()
+
+  const annee = maintenant.getFullYear()
+  const mois = String(
+    maintenant.getMonth() + 1,
+  ).padStart(2, '0')
+  const jour = String(
+    maintenant.getDate(),
+  ).padStart(2, '0')
+
+  const dateAujourdHui = `${annee}-${mois}-${jour}`
+
+  const prochainesEcheances = taches
+    .filter(
+      (tache) =>
+        tache.echeance &&
+        tache.statut !== 'terminee' &&
+        tache.echeance >= dateAujourdHui,
+    )
+    .sort((a, b) =>
+      a.echeance.localeCompare(b.echeance),
+    )
+    .slice(0, 5)
+
   return (
     <main>
       <h1>Tableau de bord</h1>
@@ -215,6 +241,52 @@ function Dashboard() {
                 </progress>
               </article>
             ))}
+          </div>
+        )}
+      </section>
+
+      <section>
+        <h2>Prochaines échéances</h2>
+
+        {prochainesEcheances.length === 0 ? (
+          <p>
+            Aucune échéance à venir.
+          </p>
+        ) : (
+          <div>
+            {prochainesEcheances.map((tache) => {
+              const projetTache = projets.find(
+                (projet) =>
+                  projet.id === tache.projetId,
+              )
+
+              return (
+                <article key={tache.id}>
+                  <h3>{tache.titre}</h3>
+
+                  <p>
+                    <strong>Projet :</strong>{' '}
+                    {projetTache?.nom ??
+                      'Projet inconnu'}
+                  </p>
+
+                  <p>
+                    <strong>Échéance :</strong>{' '}
+                    {tache.echeance}
+                  </p>
+
+                  <p>
+                    <strong>Priorité :</strong>{' '}
+                    {tache.priorite}
+                  </p>
+
+                  <p>
+                    <strong>Statut :</strong>{' '}
+                    {tache.statut}
+                  </p>
+                </article>
+              )
+            })}
           </div>
         )}
       </section>
