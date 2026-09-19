@@ -218,51 +218,55 @@ function Dashboard() {
       )
     }
 
-  return (
-    <main>
-      <h1>Tableau de bord</h1>
+    return (
+      <main className="dashboard-page">
+        <header className="dashboard-header">
+          <div>
+            <h1>Tableau de bord</h1>
 
-      <p>
-        Bienvenue {utilisateur.nom}.
-      </p>
+            <p>
+              Bienvenue {utilisateur.nom}.
+            </p>
+          </div>
+        </header>
 
-      <section>
-        <h2>Statistiques</h2>
+        <section className="dashboard-section">
+          <h2>Statistiques</h2>
 
-        <div>
-          <article>
-            <h3>Projets</h3>
-            <p>{totalProjets}</p>
-          </article>
+          <div className="dashboard-stats-grid">
+            <article className="dashboard-stat-card">
+              <h3>Projets</h3>
+              <p>{totalProjets}</p>
+            </article>
 
-          <article>
-            <h3>Tâches</h3>
-            <p>{totalTaches}</p>
-          </article>
+            <article className="dashboard-stat-card">
+              <h3>Tâches</h3>
+              <p>{totalTaches}</p>
+            </article>
 
-          <article>
-            <h3>À faire</h3>
-            <p>{tachesAFaire}</p>
-          </article>
+            <article className="dashboard-stat-card">
+              <h3>À faire</h3>
+              <p>{tachesAFaire}</p>
+            </article>
 
-          <article>
-            <h3>En cours</h3>
-            <p>{tachesEnCours}</p>
-          </article>
+            <article className="dashboard-stat-card">
+              <h3>En cours</h3>
+              <p>{tachesEnCours}</p>
+            </article>
 
-          <article>
-            <h3>Terminées</h3>
-            <p>{tachesTerminees}</p>
-          </article>
+            <article className="dashboard-stat-card">
+              <h3>Terminées</h3>
+              <p>{tachesTerminees}</p>
+            </article>
 
-          <article>
-            <h3>En retard</h3>
-            <p>{tachesEnRetard.length}</p>
-          </article>
-        </div>
-      </section>
+            <article className="dashboard-stat-card">
+              <h3>En retard</h3>
+              <p>{tachesEnRetard.length}</p>
+            </article>
+          </div>
+        </section>
 
-      <section>
+      <section className="dashboard-section">
         <h2>Progression globale</h2>
 
         <p>{progression} %</p>
@@ -275,7 +279,7 @@ function Dashboard() {
         </progress>
       </section>
 
-      <section>
+      <section className="dashboard-section">
         <h2>Progression par projet</h2>
 
         {projetsAvecProgression.length === 0 ? (
@@ -312,7 +316,7 @@ function Dashboard() {
         )}
       </section>
 
-      <section>
+      <section className="dashboard-section">
         <h2>Prochaines échéances</h2>
 
         {prochainesEcheances.length === 0 ? (
@@ -370,7 +374,7 @@ function Dashboard() {
         )}
       </section>
 
-      <section>
+      <section className="dashboard-section">
         <h2>Tâches en retard</h2>
 
         {tachesEnRetard.length === 0 ? (
@@ -431,7 +435,7 @@ function Dashboard() {
         )}
       </section>
 
-      <section>
+      <section className="dashboard-section">
         <h2>Tâches récentes</h2>
 
         {tachesRecentes.length === 0 ? (
