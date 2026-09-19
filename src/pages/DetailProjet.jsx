@@ -13,6 +13,11 @@ function DetailProjet() {
   const [taches, setTaches] = useState([])
   const [tacheEnEdition, setTacheEnEdition] =
   useState(null)
+
+  const [recherche, setRecherche] = useState('')
+  const [filtreStatut, setFiltreStatut] = useState('')
+  const [filtrePriorite, setFiltrePriorite] = useState('')
+
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState('')
 
@@ -192,6 +197,35 @@ function DetailProjet() {
     )
   }
 
+  const tachesFiltrees = taches.filter((tache) => {
+    const texteRecherche = recherche
+      .trim()
+      .toLowerCase()
+
+    const correspondRecherche =
+      texteRecherche === '' ||
+      tache.titre
+        .toLowerCase()
+        .includes(texteRecherche) ||
+      (tache.description ?? '')
+        .toLowerCase()
+        .includes(texteRecherche)
+
+    const correspondStatut =
+      filtreStatut === '' ||
+      tache.statut === filtreStatut
+
+    const correspondPriorite =
+      filtrePriorite === '' ||
+      tache.priorite === filtrePriorite
+
+    return (
+      correspondRecherche &&
+      correspondStatut &&
+      correspondPriorite
+    )
+  })
+
   return (
     <main>
       <Link to="/projets">
@@ -221,7 +255,90 @@ function DetailProjet() {
         />
       </div>
 
- 
+      <div>
+        <div>
+          <label htmlFor="rechercheTache">
+            Rechercher une tâche
+          </label>
+
+          <input
+            id="rechercheTache"
+            type="search"
+            placeholder="Titre ou description..."
+            value={recherche}
+            onChange={(event) =>
+              setRecherche(event.target.value)
+            }
+          />
+        </div>
+
+        <div>
+          <label htmlFor="filtreStatut">
+            Statut
+          </label>
+
+          <select
+            id="filtreStatut"
+            value={filtreStatut}
+            onChange={(event) =>
+              setFiltreStatut(event.target.value)
+            }
+          >
+            <option value="">
+              Tous les statuts
+            </option>
+            <option value="a_faire">
+              À faire
+            </option>
+            <option value="en_cours">
+              En cours
+            </option>
+            <option value="terminee">
+              Terminée
+            </option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="filtrePriorite">
+            Priorité
+          </label>
+
+          <select
+            id="filtrePriorite"
+            value={filtrePriorite}
+            onChange={(event) =>
+              setFiltrePriorite(event.target.value)
+            }
+          >
+            <option value="">
+              Toutes les priorités
+            </option>
+            <option value="basse">
+              Basse
+            </option>
+            <option value="moyenne">
+              Moyenne
+            </option>
+            <option value="haute">
+              Haute
+            </option>
+          </select>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setRecherche('')
+            setFiltreStatut('')
+            setFiltrePriorite('')
+          }}
+        >
+          Réinitialiser les filtres
+        </button>
+      </div>
+
+      
       <section>
         <h2>Tâches du projet</h2>
 
@@ -239,11 +356,20 @@ function DetailProjet() {
           />
         )}
 
-        {taches.length === 0 ? (
+        {/* {taches.length === 0 ? (
           <p>Aucune tâche pour ce projet.</p>
         ) : (
           <div>
-            {taches.map((tache) => (
+            {taches.map((tache) => ( */}
+
+        {tachesFiltrees.length === 0 ? (
+          <p>
+            Aucune tâche ne correspond aux critères.
+          </p>
+        ) : (
+          <div>
+            {tachesFiltrees.map((tache) => (
+
               <article key={tache.id}>
                 <h3>{tache.titre}</h3>
 
