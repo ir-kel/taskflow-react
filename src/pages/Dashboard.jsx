@@ -172,6 +172,44 @@ function Dashboard() {
       a.echeance.localeCompare(b.echeance),
     )
 
+    const formaterDate = (dateIso) => {
+      if (!dateIso) {
+        return 'Aucune échéance'
+      }
+
+      const [annee, mois, jour] = dateIso.split('-')
+
+      return `${jour}/${mois}/${annee}`
+    }
+
+    const calculerJoursRetard = (echeance) => {
+      const [anneeEcheance, moisEcheance, jourEcheance] =
+        echeance.split('-').map(Number)
+
+      const [anneeAujourdhui, moisAujourdhui, jourAujourdhui] =
+        dateAujourdHui.split('-').map(Number)
+
+      const dateEcheanceUtc = Date.UTC(
+        anneeEcheance,
+        moisEcheance - 1,
+        jourEcheance,
+      )
+
+      const dateAujourdhuiUtc = Date.UTC(
+        anneeAujourdhui,
+        moisAujourdhui - 1,
+        jourAujourdhui,
+      )
+
+      const millisecondesParJour =
+        1000 * 60 * 60 * 24
+
+      return Math.floor(
+        (dateAujourdhuiUtc - dateEcheanceUtc) /
+          millisecondesParJour,
+      )
+    }
+
   return (
     <main>
       <h1>Tableau de bord</h1>
@@ -276,6 +314,7 @@ function Dashboard() {
                   projet.id === tache.projetId,
               )
 
+         
               return (
                 <article key={tache.id}>
                   <h3>{tache.titre}</h3>
@@ -286,10 +325,16 @@ function Dashboard() {
                       'Projet inconnu'}
                   </p>
 
+               
+
                   <p>
                     <strong>Échéance :</strong>{' '}
-                    {tache.echeance}
+                    {formaterDate(tache.echeance)}
                   </p>
+
+          
+
+                
 
                   <p>
                     <strong>Priorité :</strong>{' '}
@@ -320,6 +365,9 @@ function Dashboard() {
                   projet.id === tache.projetId,
               )
 
+              const joursRetard =
+                calculerJoursRetard(tache.echeance)
+
               return (
                 <article key={tache.id}>
                   <h3>{tache.titre}</h3>
@@ -332,7 +380,16 @@ function Dashboard() {
 
                   <p>
                     <strong>Échéance :</strong>{' '}
-                    {tache.echeance}
+                   
+                    {formaterDate(tache.echeance)}
+                  </p>
+
+                  <p>
+                    <strong>Retard :</strong>{' '}
+                    {joursRetard}{' '}
+                    {joursRetard === 1
+                      ? 'jour'
+                      : 'jours'}
                   </p>
 
                   <p>
