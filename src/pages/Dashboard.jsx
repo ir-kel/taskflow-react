@@ -172,6 +172,13 @@ function Dashboard() {
       a.echeance.localeCompare(b.echeance),
     )
 
+    const tachesRecentes = taches
+    .filter((tache) => tache.creeLe)
+    .sort((a, b) =>
+      b.creeLe.localeCompare(a.creeLe),
+    )
+    .slice(0, 5)
+
     const formaterDate = (dateIso) => {
       if (!dateIso) {
         return 'Aucune échéance'
@@ -390,6 +397,50 @@ function Dashboard() {
                     {joursRetard === 1
                       ? 'jour'
                       : 'jours'}
+                  </p>
+
+                  <p>
+                    <strong>Priorité :</strong>{' '}
+                    {tache.priorite}
+                  </p>
+
+                  <p>
+                    <strong>Statut :</strong>{' '}
+                    {tache.statut}
+                  </p>
+                </article>
+              )
+            })}
+          </div>
+        )}
+      </section>
+
+      <section>
+        <h2>Tâches récentes</h2>
+
+        {tachesRecentes.length === 0 ? (
+          <p>Aucune tâche récente.</p>
+        ) : (
+          <div>
+            {tachesRecentes.map((tache) => {
+              const projetTache = projets.find(
+                (projet) =>
+                  projet.id === tache.projetId,
+              )
+
+              return (
+                <article key={tache.id}>
+                  <h3>{tache.titre}</h3>
+
+                  <p>
+                    <strong>Projet :</strong>{' '}
+                    {projetTache?.nom ??
+                      'Projet inconnu'}
+                  </p>
+
+                  <p>
+                    <strong>Créée le :</strong>{' '}
+                    {formaterDate(tache.creeLe)}
                   </p>
 
                   <p>
