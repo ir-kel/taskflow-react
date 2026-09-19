@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import useAuth from '../hooks/useAuth.js'
 
 function Dashboard() {
@@ -283,7 +284,12 @@ function Dashboard() {
           <div>
             {projetsAvecProgression.map((projet) => (
               <article key={projet.id}>
-                <h3>{projet.nom}</h3>
+              
+                <h3>
+                  <Link to={`/projets/${projet.id}`}>
+                    {projet.nom}
+                  </Link>
+                </h3>
 
                 <p>
                   {projet.tachesTerminees} /{' '}
@@ -324,7 +330,12 @@ function Dashboard() {
          
               return (
                 <article key={tache.id}>
-                  <h3>{tache.titre}</h3>
+               
+                  <h3>
+                    <Link to={`/projets/${tache.projetId}`}>
+                      {tache.titre}
+                    </Link>
+                  </h3>
 
                   <p>
                     <strong>Projet :</strong>{' '}
@@ -377,7 +388,12 @@ function Dashboard() {
 
               return (
                 <article key={tache.id}>
-                  <h3>{tache.titre}</h3>
+                 
+                  <h3>
+                    <Link to={`/projets/${tache.projetId}`}>
+                      {tache.titre}
+                    </Link>
+                  </h3>
 
                   <p>
                     <strong>Projet :</strong>{' '}
@@ -430,7 +446,12 @@ function Dashboard() {
 
               return (
                 <article key={tache.id}>
-                  <h3>{tache.titre}</h3>
+               
+                  <h3>
+                    <Link to={`/projets/${tache.projetId}`}>
+                      {tache.titre}
+                    </Link>
+                  </h3>
 
                   <p>
                     <strong>Projet :</strong>{' '}
