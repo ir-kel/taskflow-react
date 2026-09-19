@@ -266,17 +266,33 @@ function Dashboard() {
           </div>
         </section>
 
+   
+
       <section className="dashboard-section">
         <h2>Progression globale</h2>
 
-        <p>{progression} %</p>
+        <div className="dashboard-progress-card">
+          <div className="dashboard-progress-header">
+            <span>Avancement général </span>
+            <strong>{progression} %</strong>
+          </div>
 
-        <progress
-          value={progression}
-          max="100"
-        >
-          {progression} %
-        </progress>
+          <div className="dashboard-progress-track">
+            <div
+              className="dashboard-progress-bar"
+              style={{
+                width: `${progression}%`,
+              }}
+            />
+          </div>
+
+          <p className="dashboard-progress-detail">
+            {tachesTerminees} tâche
+            {tachesTerminees > 1 ? 's' : ''} terminée
+            {tachesTerminees > 1 ? 's' : ''} sur{' '}
+            {totalTaches}
+          </p>
+        </div>
       </section>
 
       <section className="dashboard-section">
@@ -285,31 +301,38 @@ function Dashboard() {
         {projetsAvecProgression.length === 0 ? (
           <p>Aucun projet pour le moment.</p>
         ) : (
-          <div>
+          <div className="dashboard-project-progress-grid">
             {projetsAvecProgression.map((projet) => (
-              <article key={projet.id}>
               
-                <h3>
-                  <Link to={`/projets/${projet.id}`}>
-                    {projet.nom}
-                  </Link>
-                </h3>
+              <article
+                key={projet.id}
+                className="dashboard-project-progress-card"
+              >
+                <div className="dashboard-progress-header">
+                  <h3>
+                    <Link to={`/projets/${projet.id}`}>
+                      {projet.nom}
+                    </Link>
+                  </h3>
 
-                <p>
+                  <strong>
+                    {projet.progression} %
+                  </strong>
+                </div>
+
+                <div className="dashboard-progress-track">
+                  <div
+                    className="dashboard-progress-bar"
+                    style={{
+                      width: `${projet.progression}%`,
+                    }}
+                  />
+                </div>
+
+                <p className="dashboard-progress-detail">
                   {projet.tachesTerminees} /{' '}
                   {projet.totalTaches} tâches terminées
                 </p>
-
-                <p>
-                  {projet.progression} %
-                </p>
-
-                <progress
-                  value={projet.progression}
-                  max="100"
-                >
-                  {projet.progression} %
-                </progress>
               </article>
             ))}
           </div>
