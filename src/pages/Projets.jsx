@@ -65,8 +65,15 @@ function Projets() {
 
   if (chargement) {
     return (
-      <main>
-        <h1>Mes projets</h1>
+      <main className="projects-page">
+        <header className="projects-header">
+          <div>
+            <h1>Mes projets</h1>
+            <p>
+              Créez et gérez vos différents projets.
+            </p>
+          </div>
+        </header>
         <p>Chargement des projets...</p>
       </main>
     )
@@ -125,10 +132,12 @@ function Projets() {
     <main>
       <h1>Mes projets</h1>
 
-      <FormulaireProjet
-        utilisateurId={utilisateur.id}
-        onProjetCree={gererProjetCree}
-      />
+      <div className="projects-form-wrapper">
+        <FormulaireProjet
+          utilisateurId={utilisateur.id}
+          onProjetCree={gererProjetCree}
+        />
+      </div>
 
       {projetEnEdition && (
         <FormulaireModificationProjet
@@ -140,11 +149,22 @@ function Projets() {
       )}
 
       {projets.length === 0 ? (
-        <p>Aucun projet pour le moment.</p>
+        <div className="projects-empty-state">
+          <h2>Aucun projet</h2>
+          <p>
+            Commencez par créer votre premier projet.
+          </p>
+        </div>
       ) : (
-        <div>
+        <div className="projects-grid">
           {projets.map((projet) => (
-            <article key={projet.id}>
+            <article
+              key={projet.id}
+              className="project-card"
+              style={{
+                borderTopColor: projet.couleur,
+              }}
+            >
               <h2>{projet.nom}</h2>
               <p>{projet.description}</p>
 
@@ -152,19 +172,30 @@ function Projets() {
                 Voir le projet
               </Link>
 
-              <button
-                type="button"
-                onClick={() => setProjetEnEdition(projet)}
-              >
-                Modifier
-              </button>
+              <div className="project-card-actions">
+                <Link
+                  to={`/projets/${projet.id}`}
+                  className="button button-primary"
+                >
+                  Voir
+                </Link>
 
-              <button
-                type="button"
-                onClick={() => gererSuppressionProjet(projet)}
-              >
-                Supprimer
-              </button>
+                <button
+                  type="button"
+                  className="button button-secondary"
+                  onClick={() => setProjetEnEdition(projet)}
+                >
+                  Modifier
+                </button>
+
+                <button
+                  type="button"
+                  className="button button-danger"
+                  onClick={() => gererSuppressionProjet(projet)}
+                >
+                  Supprimer
+                </button>
+              </div>
 
             </article>
           ))}
