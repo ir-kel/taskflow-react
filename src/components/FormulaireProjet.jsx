@@ -66,47 +66,117 @@ function FormulaireProjet({
   }
 
   return (
+    // <section>
+    //   <h2>Nouveau projet</h2>
+
+    //   <form onSubmit={gererSoumission}>
+    //     <div>
+    //       <label htmlFor="nomProjet">
+    //         Nom du projet
+    //       </label>
+
+    //       <input
+    //         id="nomProjet"
+    //         type="text"
+    //         value={nom}
+    //         onChange={(event) =>
+    //           setNom(event.target.value)
+    //         }
+    //         required
+    //       />
+    //     </div>
+
+    //     <div>
+    //       <label htmlFor="descriptionProjet">
+    //         Description
+    //       </label>
+
+    //       <textarea
+    //         id="descriptionProjet"
+    //         value={description}
+    //         onChange={(event) =>
+    //           setDescription(event.target.value)
+    //         }
+    //       />
+    //     </div>
+
+    //     <div>
+    //       <label htmlFor="couleurProjet">
+    //         Couleur
+    //       </label>
+
+    //       <input
+    //         id="couleurProjet"
+    //         type="color"
+    //         value={couleur}
+    //         onChange={(event) =>
+    //           setCouleur(event.target.value)
+    //         }
+    //       />
+    //     </div>
+
+    //     {erreur && <p>{erreur}</p>}
+
+    //     <button
+    //       type="submit"
+    //       disabled={envoi}
+    //     >
+    //       {envoi
+    //         ? 'Création...'
+    //         : 'Créer le projet'}
+    //     </button>
+    //   </form>
+    // </section>
+
     <section>
       <h2>Nouveau projet</h2>
 
-      <form onSubmit={gererSoumission}>
-        <div>
+      <form
+        className="app-form"
+        onSubmit={gererSoumission}
+      >
+        <div className="form-group">
           <label htmlFor="nomProjet">
             Nom du projet
           </label>
 
           <input
             id="nomProjet"
+            className="form-control"
             type="text"
             value={nom}
             onChange={(event) =>
               setNom(event.target.value)
             }
+            placeholder="Ex. Application TaskFlow"
             required
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="descriptionProjet">
             Description
           </label>
 
           <textarea
             id="descriptionProjet"
+            className="form-control"
             value={description}
             onChange={(event) =>
               setDescription(event.target.value)
             }
+            placeholder="Décrivez brièvement le projet..."
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="couleurProjet">
             Couleur
           </label>
 
           <input
             id="couleurProjet"
+            className="form-color"
             type="color"
             value={couleur}
             onChange={(event) =>
@@ -115,16 +185,23 @@ function FormulaireProjet({
           />
         </div>
 
-        {erreur && <p>{erreur}</p>}
+        {erreur && (
+          <p className="form-error">
+            {erreur}
+          </p>
+        )}
 
-        <button
-          type="submit"
-          disabled={envoi}
-        >
-          {envoi
-            ? 'Création...'
-            : 'Créer le projet'}
-        </button>
+        <div className="form-actions">
+          <button
+            className="button button-primary"
+            type="submit"
+            disabled={envoi}
+          >
+            {envoi
+              ? 'Création...'
+              : 'Créer le projet'}
+          </button>
+        </div>
       </form>
     </section>
   )

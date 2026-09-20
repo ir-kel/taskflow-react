@@ -83,14 +83,18 @@ function FormulaireModificationTache({
     <section>
       <h2>Modifier la tâche</h2>
 
-      <form onSubmit={gererSoumission}>
-        <div>
+      <form
+        className="app-form"
+        onSubmit={gererSoumission}
+      >
+        <div className="form-group">
           <label htmlFor="titreTacheModification">
             Titre
           </label>
 
           <input
             id="titreTacheModification"
+            className="form-control"
             type="text"
             value={titre}
             onChange={(event) =>
@@ -100,13 +104,14 @@ function FormulaireModificationTache({
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="descriptionTacheModification">
             Description
           </label>
 
           <textarea
             id="descriptionTacheModification"
+            className="form-control"
             value={description}
             onChange={(event) =>
               setDescription(event.target.value)
@@ -114,13 +119,14 @@ function FormulaireModificationTache({
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="statutTacheModification">
             Statut
           </label>
 
           <select
             id="statutTacheModification"
+            className="form-control"
             value={statut}
             onChange={(event) =>
               setStatut(event.target.value)
@@ -140,13 +146,14 @@ function FormulaireModificationTache({
           </select>
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="prioriteTacheModification">
             Priorité
           </label>
 
           <select
             id="prioriteTacheModification"
+            className="form-control"
             value={priorite}
             onChange={(event) =>
               setPriorite(event.target.value)
@@ -166,13 +173,14 @@ function FormulaireModificationTache({
           </select>
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="echeanceTacheModification">
             Échéance
           </label>
 
           <input
             id="echeanceTacheModification"
+            className="form-control"
             type="date"
             value={echeance}
             onChange={(event) =>
@@ -181,24 +189,33 @@ function FormulaireModificationTache({
           />
         </div>
 
-        {erreur && <p>{erreur}</p>}
 
-        <button
-          type="submit"
-          disabled={envoi}
-        >
-          {envoi
-            ? 'Modification...'
-            : 'Enregistrer les modifications'}
-        </button>
+        {erreur && (
+          <p className="form-error">
+            {erreur}
+          </p>
+        )}
 
-        <button
-          type="button"
-          onClick={onAnnuler}
-          disabled={envoi}
-        >
-          Annuler
-        </button>
+        <div className="form-actions">
+          <button
+            className="button button-primary"
+            type="submit"
+            disabled={envoi}
+          >
+            {envoi
+              ? 'Modification...'
+              : 'Enregistrer les modifications'}
+          </button>
+
+          <button
+            className="button button-secondary"
+            type="button"
+            onClick={onAnnuler}
+            disabled={envoi}
+          >
+            Annuler
+          </button>
+        </div>
       </form>
     </section>
   )

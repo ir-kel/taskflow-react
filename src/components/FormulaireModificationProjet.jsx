@@ -64,8 +64,11 @@ function FormulaireModificationProjet({
     <section>
       <h2>Modifier le projet</h2>
 
-      <form onSubmit={gererSoumission}>
-        <div>
+      <form
+        className="app-form"
+        onSubmit={gererSoumission}
+      >
+        <div className="form-group">
           <label htmlFor="nomProjetModification">
             Nom du projet
           </label>
@@ -73,6 +76,7 @@ function FormulaireModificationProjet({
           <input
             id="nomProjetModification"
             type="text"
+            className="form-control"
             value={nom}
             onChange={(event) =>
               setNom(event.target.value)
@@ -81,13 +85,14 @@ function FormulaireModificationProjet({
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="descriptionProjetModification">
             Description
           </label>
 
           <textarea
             id="descriptionProjetModification"
+            className="form-control"
             value={description}
             onChange={(event) =>
               setDescription(event.target.value)
@@ -102,6 +107,7 @@ function FormulaireModificationProjet({
 
           <input
             id="couleurProjetModification"
+            className="form-color"
             type="color"
             value={couleur}
             onChange={(event) =>
@@ -110,24 +116,32 @@ function FormulaireModificationProjet({
           />
         </div>
 
-        {erreur && <p>{erreur}</p>}
+        {erreur && (
+          <p className="form-error">
+            {erreur}
+          </p>
+        )}
 
-        <button
-          type="submit"
-          disabled={envoi}
-        >
-          {envoi
-            ? 'Modification...'
-            : 'Enregistrer les modifications'}
-        </button>
+        <div className="form-actions">
+          <button
+            className="button button-primary"
+            type="submit"
+            disabled={envoi}
+          >
+            {envoi
+              ? 'Modification...'
+              : 'Enregistrer les modifications'}
+          </button>
 
-        <button
-          type="button"
-          onClick={onAnnuler}
-          disabled={envoi}
-        >
-          Annuler
-        </button>
+          <button
+            className="button button-secondary"
+            type="button"
+            onClick={onAnnuler}
+            disabled={envoi}
+          >
+            Annuler
+          </button>
+        </div>
       </form>
     </section>
   )
