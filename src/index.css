@@ -17,10 +17,21 @@ a {
 .app-layout {
   min-height: 100vh;
   display: flex;
+  background: #f8fafc;
+
+}
+
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  flex-shrink: 0;
+  padding: 24px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
 }
 
 
-.sidebar {
+/* .sidebar {
   width: 240px;
   min-height: 100vh;
   padding: 24px;
@@ -28,6 +39,13 @@ a {
   border-right: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
+  
+} */
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .sidebar-footer {
@@ -362,4 +380,73 @@ main {
   border: 1px dashed #cbd5e1;
   border-radius: 12px;
   color: #64748b;
+}
+
+
+/* mOBILE */
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    padding: 16px;
+    border-right: 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .app-main {
+    width: 100%;
+  }
+
+  .dashboard-page {
+    padding: 20px;
+  }
+
+    .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sidebar-nav a {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+}
+
+          /* .dashboard-stats-grid {
+            grid-template-columns:
+              repeat(auto-fit, minmax(180px, 1fr));
+          }
+
+
+
+          .dashboard-task-grid {
+            grid-template-columns:
+              repeat(auto-fit, minmax(280px, 1fr));
+          } */
+
+/* Ces grilles sont déjà assez responsives.
+
+Mais 280px peut devenir serré sur certains petits téléphones avec padding. */
+
+@media (max-width: 480px) {
+  .dashboard-page {
+    padding: 16px;
+  }
+
+  .dashboard-stats-grid,
+  .dashboard-project-progress-grid,
+  .dashboard-task-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.6rem;
+  }
 }
