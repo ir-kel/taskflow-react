@@ -45,47 +45,97 @@ function Connexion() {
   }
 
   return (
-    <main>
-      <h1>Connexion</h1>
+    <main className="auth-page">
+      <section className="auth-visual">
+        <div className="auth-visual-content">
+          <h1>TaskFlow</h1>
 
-      <form onSubmit={gererConnexion}>
-        <div>
-          <label htmlFor="email">E-mail</label>
-
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
+          <p>
+            Organisez vos projets, gérez vos tâches
+            et suivez votre progression depuis un
+            espace simple et centralisé.
+          </p>
         </div>
+      </section>
 
-        <div>
-          <label htmlFor="motDePasse">Mot de passe</label>
+      <section className="auth-form-side">
+        <div className="auth-card">
+          <header className="auth-card-header">
+            <h2>Connexion</h2>
 
-          <input
-            id="motDePasse"
-            type="password"
-            value={motDePasse}
-            onChange={(event) => setMotDePasse(event.target.value)}
-            required
-          />
+            <p>
+              Connectez-vous pour accéder à vos
+              projets et à votre tableau de bord.
+            </p>
+          </header>
+
+        
+          <form
+            className="app-form"
+            onSubmit={gererConnexion}
+          >
+            <div className="form-group">
+              <label htmlFor="emailConnexion">
+                Adresse e-mail
+              </label>
+
+              <input
+                id="emailConnexion"
+                className="form-control"
+                type="email"
+                value={email}
+                onChange={(event) =>
+                  setEmail(event.target.value)
+                }
+                placeholder="vous@exemple.com"
+                autoComplete="email"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="motDePasseConnexion">
+                Mot de passe
+              </label>
+
+              <input
+                id="motDePasseConnexion"
+                className="form-control"
+                type="password"
+                value={motDePasse}
+                onChange={(event) =>
+                  setMotDePasse(event.target.value)
+                }
+                autoComplete="current-password"
+                required
+              />
+            </div>
+
+            {erreur && (
+              <p className="form-error">
+                {erreur}
+              </p>
+            )}
+
+            <button
+              className="button button-primary auth-submit"
+              type="submit"
+              disabled={chargement}
+            >
+              {chargement
+                ? 'Connexion...'
+                : 'Se connecter'}
+            </button>
+          </form>
+
+          <p className="auth-footer">
+            Pas encore de compte ?{' '}
+            <Link to="/inscription">
+              Créer un compte
+            </Link>
+          </p>
         </div>
-
-        {erreur && <p>{erreur}</p>}
-
-        <button type="submit" disabled={chargement}>
-          {chargement ? 'Connexion...' : 'Se connecter'}
-        </button>
-
-        <p>
-          Pas encore de compte ?{' '}
-          <Link to="/inscription">
-            Créer un compte
-          </Link>
-        </p>
-      </form>
+      </section>
     </main>
   )
 }

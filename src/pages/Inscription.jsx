@@ -33,7 +33,9 @@ function Inscription() {
         await reponseVerification.json()
 
       if (utilisateursExistants.length > 0) {
-        setErreur('Un compte existe déjà avec cet e-mail.')
+        // setErreur('Un compte existe déjà avec cet e-mail.')
+        setErreur("Impossible de s'inscrir avec cette adresse mail, veuillez vous rassurez qu'elle est valide ou utiliser une autre")
+
         return
       }
 
@@ -70,69 +72,117 @@ function Inscription() {
     }
   }
 
+
   return (
-    <main>
-      <h1>Inscription</h1>
+    <main className="auth-page">
+      <section className="auth-visual">
+        <div className="auth-visual-content">
+          <h1>TaskFlow</h1>
 
-      <form onSubmit={gererInscription}>
-        <div>
-          <label htmlFor="nom">Nom</label>
-
-          <input
-            id="nom"
-            type="text"
-            value={nom}
-            onChange={(event) => setNom(event.target.value)}
-            required
-          />
+          <p>
+            Créez votre espace personnel et commencez
+            à organiser vos projets et vos tâches.
+          </p>
         </div>
+      </section>
 
-        <div>
-          <label htmlFor="email">E-mail</label>
+      <section className="auth-form-side">
+        <div className="auth-card">
+          <header className="auth-card-header">
+            <h2>Créer un compte</h2>
 
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
+            <p>
+              Quelques informations suffisent pour
+              commencer à utiliser TaskFlow.
+            </p>
+          </header>
+
+          <form
+            className="app-form"
+            onSubmit={gererInscription}
+          >
+          
+            <div className="form-group">
+              <label htmlFor="nomInscription">
+                Nom
+              </label>
+
+              <input
+                id="nomInscription"
+                className="form-control"
+                type="text"
+                value={nom}
+                onChange={(event) =>
+                  setNom(event.target.value)
+                }
+                placeholder="Votre nom"
+                autoComplete="name"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="emailInscription">
+                Adresse e-mail
+              </label>
+
+              <input
+                id="emailInscription"
+                className="form-control"
+                type="email"
+                value={email}
+                onChange={(event) =>
+                  setEmail(event.target.value)
+                }
+                placeholder="vous@exemple.com"
+                autoComplete="email"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="motDePasseInscription">
+                Mot de passe
+              </label>
+
+              <input
+                id="motDePasseInscription"
+                className="form-control"
+                type="password"
+                value={motDePasse}
+                onChange={(event) =>
+                  setMotDePasse(event.target.value)
+                }
+                autoComplete="new-password"
+                required
+              />
+            </div>
+
+            {erreur && (
+              <p className="form-error">
+                {erreur}
+              </p>
+            )}
+
+            <button
+              className="button button-primary auth-submit"
+              type="submit"
+              disabled={chargement}
+            >
+              {chargement
+                ? 'Création...'
+                : 'Créer mon compte'}
+            </button>
+          </form>
+
+          <p className="auth-footer">
+            Vous avez déjà un compte ?{' '}
+            <Link to="/connexion">
+              Se connecter
+            </Link>
+          </p>
         </div>
-
-        <div>
-          <label htmlFor="motDePasse">
-            Mot de passe
-          </label>
-
-          <input
-            id="motDePasse"
-            type="password"
-            value={motDePasse}
-            onChange={(event) =>
-              setMotDePasse(event.target.value)
-            }
-            required
-          />
-        </div>
-
-        {erreur && <p>{erreur}</p>}
-
-        <button
-          type="submit"
-          disabled={chargement}
-        >
-          {chargement
-            ? 'Création du compte...'
-            : 'Créer mon compte'}
-        </button>
-      </form>
-
-      <p>
-        Déjà inscrit ?{' '}
-        <Link to="/connexion">
-          Se connecter
-        </Link>
-      </p>
+      </section>
     </main>
   )
 }
