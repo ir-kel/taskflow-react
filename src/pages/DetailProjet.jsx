@@ -178,21 +178,40 @@ function DetailProjet() {
 
   if (chargement) {
     return (
-      <main>
-        <p>Chargement du projet...</p>
+      <main className="page-state">
+        <div className="page-state-card">
+          <div
+            className="page-state-loader"
+            aria-hidden="true"
+          />
+
+          <h2>Chargement du projet</h2>
+
+          <p>
+            Récupération du projet et de ses tâches...
+          </p>
+        </div>
       </main>
     )
   }
 
   if (erreur) {
     return (
-      <main>
-        <h1>Projet indisponible</h1>
-        <p>{erreur}</p>
+      <main className="page-state">
+        <div className="page-state-card page-state-error">
+          <h2>Projet indisponible</h2>
 
-        <Link to="/projets">
-          Retour aux projets
-        </Link>
+          <p>{erreur}</p>
+
+          <div className="page-state-actions">
+            <Link
+              to="/projets"
+              className="button button-secondary"
+            >
+              Retour aux projets
+            </Link>
+          </div>
+        </div>
       </main>
     )
   }

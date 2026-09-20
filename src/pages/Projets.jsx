@@ -65,25 +65,31 @@ function Projets() {
 
   if (chargement) {
     return (
-      <main className="projects-page">
-        <header className="projects-header">
-          <div>
-            <h1>Mes projets</h1>
-            <p>
-              Créez et gérez vos différents projets.
-            </p>
-          </div>
-        </header>
-        <p>Chargement des projets...</p>
+      <main className="page-state">
+        <div className="page-state-card">
+          <div
+            className="page-state-loader"
+            aria-hidden="true"
+          />
+
+          <h2>Chargement des projets</h2>
+
+          <p>
+            Récupération de vos projets...
+          </p>
+        </div>
       </main>
     )
   }
 
   if (erreur) {
     return (
-      <main>
-        <h1>Mes projets</h1>
-        <p>{erreur}</p>
+      <main className="page-state">
+        <div className="page-state-card page-state-error">
+          <h2>Impossible de charger les projets</h2>
+
+          <p>{erreur}</p>
+        </div>
       </main>
     )
   }

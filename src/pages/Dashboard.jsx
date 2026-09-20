@@ -69,18 +69,31 @@ function Dashboard() {
 
   if (chargement) {
     return (
-      <main>
-        <h1>Tableau de bord</h1>
-        <p>Chargement des statistiques...</p>
+      <main className="page-state">
+        <div className="page-state-card">
+          <div
+            className="page-state-loader"
+            aria-hidden="true"
+          />
+
+          <h2>Chargement du tableau de bord</h2>
+
+          <p>
+            Récupération de vos projets et de vos tâches...
+          </p>
+        </div>
       </main>
     )
   }
 
   if (erreur) {
     return (
-      <main>
-        <h1>Tableau de bord</h1>
-        <p>{erreur}</p>
+      <main className="page-state">
+        <div className="page-state-card page-state-error">
+          <h2>Impossible de charger le tableau de bord</h2>
+
+          <p>{erreur}</p>
+        </div>
       </main>
     )
   }
