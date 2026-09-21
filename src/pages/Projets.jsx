@@ -134,11 +134,19 @@ function Projets() {
   }
 
   return (
-   
-    <main>
-      <h1>Mes projets</h1>
 
-      <div className="projects-form-wrapper">
+  <main className="projects-page">
+    <header className="projects-header">
+      <div>
+        <h1>Mes projets</h1>
+
+        <p>
+          Créez, consultez et gérez vos différents projets.
+        </p>
+      </div>
+    </header>
+
+    <div className="projects-form-wrapper">
         <FormulaireProjet
           utilisateurId={utilisateur.id}
           onProjetCree={gererProjetCree}
@@ -173,10 +181,7 @@ function Projets() {
             >
               <h2>{projet.nom}</h2>
               <p>{projet.description}</p>
-
-              <Link to={`/projets/${projet.id}`}>
-                Voir le projet
-              </Link>
+          
 
               <div className="project-card-actions">
                 <Link
