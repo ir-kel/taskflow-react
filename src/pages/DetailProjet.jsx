@@ -18,6 +18,8 @@ function DetailProjet() {
   const [filtreStatut, setFiltreStatut] = useState('')
   const [filtrePriorite, setFiltrePriorite] = useState('')
 
+  const [tri, setTri] = useState('echeance_asc')
+
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState('')
 
@@ -245,6 +247,68 @@ function DetailProjet() {
     )
   })
 
+  const ordrePriorites = {
+    basse: 1,
+    moyenne: 2,
+    haute: 3,
+  }
+
+  const tachesTriees = [...tachesFiltrees].sort(
+    (tacheA, tacheB) => {
+      if (tri === 'echeance_asc') {
+        if (!tacheA.echeance && !tacheB.echeance) {
+          return 0
+        }
+
+        if (!tacheA.echeance) {
+          return 1
+        }
+
+        if (!tacheB.echeance) {
+          return -1
+        }
+
+        return tacheA.echeance.localeCompare(
+          tacheB.echeance,
+        )
+      }
+
+      if (tri === 'echeance_desc') {
+        if (!tacheA.echeance && !tacheB.echeance) {
+          return 0
+        }
+
+        if (!tacheA.echeance) {
+          return 1
+        }
+
+        if (!tacheB.echeance) {
+          return -1
+        }
+
+        return tacheB.echeance.localeCompare(
+          tacheA.echeance,
+        )
+      }
+
+      if (tri === 'priorite_desc') {
+        return (
+          ordrePriorites[tacheB.priorite] -
+          ordrePriorites[tacheA.priorite]
+        )
+      }
+
+      if (tri === 'titre_asc') {
+        return tacheA.titre.localeCompare(
+          tacheB.titre,
+          'fr',
+        )
+      }
+
+      return 0
+    },
+  )
+
   return (
     <main className="project-detail-page">
       <Link
@@ -335,7 +399,7 @@ function DetailProjet() {
             <h2>Tâches du projet</h2>
 
             <p>
-              Recherchez et filtrez les tâches
+              Recherchez, filtrez et triez les tâches
               de ce projet.
             </p>
           </div>
@@ -421,6 +485,37 @@ function DetailProjet() {
             </select>
           </div>
 
+          <div className="task-filter-item">
+            <label htmlFor="triTaches">
+              Trier par
+            </label>
+
+            <select
+              id="triTaches"
+              className="form-control"
+              value={tri}
+              onChange={(event) =>
+                setTri(event.target.value)
+              }
+            >
+              <option value="echeance_asc">
+                Échéance : plus proche
+              </option>
+
+              <option value="echeance_desc">
+                Échéance : plus lointaine
+              </option>
+
+              <option value="priorite_desc">
+                Priorité : haute en premier
+              </option>
+
+              <option value="titre_asc">
+                Titre : A à Z
+              </option>
+            </select>
+          </div>
+
           <div className="task-filter-actions">
             <button
               type="button"
@@ -429,6 +524,7 @@ function DetailProjet() {
                 setRecherche('')
                 setFiltreStatut('')
                 setFiltrePriorite('')
+                setTri('echeance_asc')
               }}
             >
               Réinitialiser
@@ -439,7 +535,7 @@ function DetailProjet() {
         {/* =========================
             RÉSULTATS
             ========================= */}
-        {tachesFiltrees.length === 0 ? (
+        {tachesTriees.length === 0 ? (
           <div className="tasks-empty-state">
             <h3>Aucune tâche trouvée</h3>
 
@@ -450,7 +546,7 @@ function DetailProjet() {
           </div>
         ) : (
           <div className="tasks-grid">
-            {tachesFiltrees.map((tache) => (
+            {tachesTriees.map((tache) => (
               <article
                 key={tache.id}
                 className={`task-card task-priority-${tache.priorite}`}
