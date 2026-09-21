@@ -15,18 +15,37 @@ function BarreLaterale() {
       <div className="sidebar-logo">
         <h1>TaskFlow</h1>
         <p>Gestion de projets</p>
-
-        <p>
-          {utilisateur ? utilisateur.nom : 'Aucun utilisateur connecté'}
-        </p>
       </div>
 
-      <nav className="sidebar-nav">
-        <NavLink to="/dashboard">
+      <div className="sidebar-user">
+        <span>Connecté en tant que </span>
+
+        <strong>
+          {utilisateur
+            ? utilisateur.nom
+            : 'Utilisateur'}
+        </strong>
+      </div>
+
+      <nav
+        className="sidebar-nav"
+        aria-label="Navigation principale"
+      >
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive ? 'active' : ''
+          }
+        >
           Tableau de bord
         </NavLink>
 
-        <NavLink to="/projets">
+        <NavLink
+          to="/projets"
+          className={({ isActive }) =>
+            isActive ? 'active' : ''
+          }
+        >
           Mes projets
         </NavLink>
       </nav>
