@@ -61,11 +61,11 @@
       "projetId": 1,
       "titre": "Initialiser le projet Vite",
       "description": "Créer le projet React avec Vite et installer les dépendances.",
-      "statut": "terminee",
-      "priorite": "moyenne",
+      "statut": "a_faire",
+      "priorite": "basse",
       "echeance": "2026-09-06",
       "creeLe": "2026-09-05",
-      "modifieLe": "2026-09-06"
+      "modifieLe": "2026-09-22"
     },
     {
       "id": 4,
@@ -87,7 +87,7 @@
       "priorite": "haute",
       "echeance": "2026-09-05",
       "creeLe": "2026-09-03",
-      "modifieLe": "2026-09-05"
+      "modifieLe": "2026-09-22"
     },
     {
       "id": 6,
